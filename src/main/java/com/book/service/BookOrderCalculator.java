@@ -61,7 +61,8 @@ public class BookOrderCalculator {
 
 		case 2:
 			return BookConstant.basePrice * uniqueBooks * 0.95;
-
+		case 3:
+			return BookConstant.basePrice * uniqueBooks * 0.90;
 		default:
 			return BookConstant.basePrice * uniqueBooks;
 		}
