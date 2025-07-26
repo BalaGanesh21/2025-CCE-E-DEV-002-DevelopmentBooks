@@ -14,7 +14,6 @@ public class BookOrderCalculator {
 
 	public Double calculateBookPrice(Map<String, Integer> bookList) throws Exception {
 
-	
 		if (bookList.isEmpty())
 			throw new Exception(BookConstant.Basket_Empty);
 
@@ -26,8 +25,7 @@ public class BookOrderCalculator {
 			}
 		}
 
-	
-		 double totalPrice=BookConstant.totalPrice;
+		double totalPrice = BookConstant.totalPrice;
 
 		while (!checkAllZero(totalBooks)) {
 			int uniqueBooks = 0;
@@ -65,6 +63,8 @@ public class BookOrderCalculator {
 			return BookConstant.basePrice * uniqueBooks * 0.90;
 		case 4:
 			return BookConstant.basePrice * uniqueBooks * 0.80;
+		case 5:
+			return BookConstant.basePrice * uniqueBooks * 0.75;
 		default:
 			return BookConstant.basePrice * uniqueBooks;
 		}
