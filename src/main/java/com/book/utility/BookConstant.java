@@ -14,6 +14,8 @@ public class BookConstant {
 	public static final double basePrice = 50.0;
 
 	public static final String Basket_Empty = "Book Basket is empty, Please add some books";
+	
+	public static final String Response_Message="Total price for the given list of books";
 
 	public static final int Group_Five = 5;
 
