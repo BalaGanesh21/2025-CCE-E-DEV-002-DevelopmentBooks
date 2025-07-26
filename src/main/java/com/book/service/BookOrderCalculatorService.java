@@ -12,6 +12,7 @@ import com.book.price.BookFinalPrice;
 import com.book.price.BookPrice;
 import com.book.utility.BookConstant;
 import com.book.utility.BookUtilityService;
+import com.book.validator.Validator;
 
 @Component
 public class BookOrderCalculatorService {
@@ -24,12 +25,17 @@ public class BookOrderCalculatorService {
 
 	@Autowired
 	private GroupOptimizer groupOptimizer;
+	
+	@Autowired
+	private Validator validator;
 
 	public Double calculateBookPrice(Map<String, Integer> bookList) throws Exception {
 
 		if (bookList.isEmpty())
 			throw new Exception(BookConstant.Basket_Empty);
-
+		
+		bookList=validator.removeBooksNotListedInCatalog(bookList,BookConstant.bookCatalog);
+		
 		List<Integer> totalBooks = new ArrayList<>();
 
 		for (Entry<String, Integer> value : bookList.entrySet()) {
@@ -38,14 +44,14 @@ public class BookOrderCalculatorService {
 			}
 		}
 
-		double totalPrice = BookConstant.totalPrice;
+		double finalPrice = BookConstant.finalPrice;
 
 		List<List<Integer>> groups = createInitialGroups(totalBooks);
 		groupOptimizer.optimizeGroups(groups);
 
-		totalPrice = bookFinalPrice.getBooksTotalPrice(groups, BookConstant.finalPrice);
+		finalPrice = bookFinalPrice.getBooksTotalPrice(groups, BookConstant.finalPrice);
 
-		return totalPrice;
+		return finalPrice;
 	}
 
 	public List<List<Integer>> createInitialGroups(List<Integer> bookCount) {
