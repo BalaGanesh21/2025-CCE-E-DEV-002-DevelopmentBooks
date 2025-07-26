@@ -7,15 +7,16 @@ import java.util.Map.Entry;
 
 import org.springframework.stereotype.Component;
 
+import com.book.utility.BookConstant;
+
 @Component
 public class BookOrderCalculator {
 
-	public double basePrice = 50.0;
 
 	public Double calculateBookPrice(Map<String, Integer> bookList) throws Exception {
 
 		if (bookList.isEmpty())
-			throw new Exception("Book Basket is empty");
+			throw new Exception(BookConstant.Basket_Empty);
 
 
 		List<Integer> totalBooks = new ArrayList<>();
@@ -28,7 +29,7 @@ public class BookOrderCalculator {
 		
 		
 		for (Integer i : totalBooks) {
-				return basePrice*i;
+				return BookConstant.basePrice*i;
 			}
 
 		return 0.0;
