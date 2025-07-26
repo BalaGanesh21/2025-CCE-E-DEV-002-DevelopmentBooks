@@ -12,35 +12,38 @@ import com.book.utility.BookConstant;
 @Component
 public class GroupOptimizer {
 
-	public void optimizeGroups(List<List<Integer>> groups) {
-		Map<Integer, Integer> freqMap = new HashMap<Integer, Integer>();
+	public void optimizeGroups(List<List<Integer>> differentBookSets) {
+		Map<Integer, Integer> groupSizeCountMap = new HashMap<Integer, Integer>();
 
-		for (List<Integer> group : groups) {
+		for (List<Integer> group : differentBookSets) {
 			int size = (int) group.stream().filter(number -> number > 0).count();
-			freqMap.put(size, freqMap.getOrDefault(size, 0) + 1);
+			groupSizeCountMap.put(size, groupSizeCountMap.getOrDefault(size, 0) + 1);
 		}
 
-		int pairs = Math.min(freqMap.getOrDefault(BookConstant.Group_Three, 0),
-				freqMap.getOrDefault(BookConstant.Group_Two, 0));
-		for (int i = 0; i < pairs; i++) {
-			freqMap.put(BookConstant.Group_Three, freqMap.get(BookConstant.Group_Three) - 1);
-			freqMap.put(BookConstant.Group_Two, freqMap.get(BookConstant.Group_Two) - 1);
-			freqMap.put(BookConstant.Group_Five, freqMap.getOrDefault(BookConstant.Group_Five, 0) + 1);
-		}
-
-		int min = Math.min(freqMap.getOrDefault(BookConstant.Group_Five, 0),
-				freqMap.getOrDefault(BookConstant.Group_Three, 0));
-		for (int i = 0; i < min; i++) {
-			freqMap.put(BookConstant.Group_Five, freqMap.get(BookConstant.Group_Five) - 1);
-			freqMap.put(BookConstant.Group_Three, freqMap.get(BookConstant.Group_Three) - 1);
-			freqMap.put(BookConstant.Group_Four, freqMap.getOrDefault(BookConstant.Group_Four, 0) + 2);
-		}
-
-		groups.clear();
-		for (Map.Entry<Integer, Integer> e : freqMap.entrySet()) {
+		groupOptimization(groupSizeCountMap, BookConstant.Group_Three, BookConstant.Group_Two, BookConstant.Group_Five,
+				1);
+		groupOptimization(groupSizeCountMap, BookConstant.Group_Five, BookConstant.Group_Three, BookConstant.Group_Four,
+				2);
+		differentBookSets.clear();
+		for (Map.Entry<Integer, Integer> e : groupSizeCountMap.entrySet()) {
 			for (int i = 0; i < e.getValue(); i++) {
-				groups.add(Collections.nCopies(e.getKey(), 1));
+				differentBookSets.add(Collections.nCopies(e.getKey(), 1));
 			}
 		}
+	}
+
+	public static Map<Integer, Integer> groupOptimization(Map<Integer, Integer> groupSizeCountMap, int groupA,
+			int groupB, int resultantGroup, int incrementGroup) {
+
+		int pairs = Math.min(groupSizeCountMap.getOrDefault(groupA, 0), groupSizeCountMap.getOrDefault(groupB, 0));
+
+		for (int i = 0; i < pairs; i++) {
+			groupSizeCountMap.put(groupA, groupSizeCountMap.get(groupA) - 1);
+			groupSizeCountMap.put(groupB, groupSizeCountMap.get(groupB) - 1);
+			groupSizeCountMap.put(resultantGroup, groupSizeCountMap.getOrDefault(resultantGroup, 0) + incrementGroup);
+		}
+
+		return groupSizeCountMap;
+
 	}
 }
