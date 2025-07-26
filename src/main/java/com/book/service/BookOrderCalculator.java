@@ -12,12 +12,10 @@ import com.book.utility.BookConstant;
 @Component
 public class BookOrderCalculator {
 
-
 	public Double calculateBookPrice(Map<String, Integer> bookList) throws Exception {
 
 		if (bookList.isEmpty())
 			throw new Exception(BookConstant.Basket_Empty);
-
 
 		List<Integer> totalBooks = new ArrayList<>();
 
@@ -26,13 +24,44 @@ public class BookOrderCalculator {
 				totalBooks.add(value.getValue());
 			}
 		}
-		
-		
-		for (Integer i : totalBooks) {
-				return BookConstant.basePrice*i;
+
+		double totalPrice = 0;
+
+		while (!checkAllZero(totalBooks)) {
+			int uniqueBooks = 0;
+			for (int i = 0; i < totalBooks.size(); i++) {
+
+				if (totalBooks.get(i) > 0) {
+					uniqueBooks++;
+					totalBooks.set(i, totalBooks.get(i) - 1);
+				}
+
 			}
+			totalPrice += getDiscoutPrice(uniqueBooks);
+		}
 
-		return 0.0;
+		return totalPrice;
+	}
 
+	public boolean checkAllZero(List<Integer> totalBooks) {
+		// TODO Auto-generated method stub
+		for (Integer i : totalBooks) {
+			if (i != 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public double getDiscoutPrice(int uniqueBooks) {
+
+		switch (uniqueBooks) {
+
+		case 2:
+			return BookConstant.basePrice * uniqueBooks * 0.95;
+
+		default:
+			return BookConstant.basePrice * uniqueBooks;
+		}
 	}
 }
