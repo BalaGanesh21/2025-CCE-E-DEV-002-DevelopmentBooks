@@ -24,6 +24,8 @@ public class GroupOptimizer {
 				1);
 		groupOptimization(groupSizeCountMap, BookConstant.Group_Five, BookConstant.Group_Three, BookConstant.Group_Four,
 				2);
+		groupOptimization(groupSizeCountMap, BookConstant.Group_Two, BookConstant.Group_One, BookConstant.Group_Three,
+				1);
 		differentBookSets.clear();
 		for (Map.Entry<Integer, Integer> e : groupSizeCountMap.entrySet()) {
 			for (int i = 0; i < e.getValue(); i++) {

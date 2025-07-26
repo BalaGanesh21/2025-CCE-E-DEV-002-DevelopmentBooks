@@ -18,6 +18,7 @@ public class BookConstant {
 	public static final int Group_Five = 5;
 
 	public static final int Group_Four = 4;
+	public static final int Group_One = 1;
 	public static final int Group_Two = 2;
 
 	public static final double finalPrice = 0.0;

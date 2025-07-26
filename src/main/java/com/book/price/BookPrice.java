@@ -8,7 +8,7 @@ import com.book.utility.BookConstant;
 @Component
 public class BookPrice {
 	
-	public double getBookPrice(int uniqueBooks) {
+	public double getPriceForEachUniqueSets(int uniqueBooks) {
 
 		switch (uniqueBooks) {
 
