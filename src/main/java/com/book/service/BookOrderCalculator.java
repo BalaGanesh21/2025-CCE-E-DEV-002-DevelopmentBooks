@@ -14,6 +14,7 @@ public class BookOrderCalculator {
 
 	public Double calculateBookPrice(Map<String, Integer> bookList) throws Exception {
 
+	
 		if (bookList.isEmpty())
 			throw new Exception(BookConstant.Basket_Empty);
 
@@ -25,7 +26,8 @@ public class BookOrderCalculator {
 			}
 		}
 
-		double totalPrice = 0;
+	
+		 double totalPrice=BookConstant.totalPrice;
 
 		while (!checkAllZero(totalBooks)) {
 			int uniqueBooks = 0;
@@ -45,8 +47,8 @@ public class BookOrderCalculator {
 
 	public boolean checkAllZero(List<Integer> totalBooks) {
 		// TODO Auto-generated method stub
-		for (Integer i : totalBooks) {
-			if (i != 0) {
+		for (Integer bookcount : totalBooks) {
+			if (bookcount != 0) {
 				return false;
 			}
 		}
