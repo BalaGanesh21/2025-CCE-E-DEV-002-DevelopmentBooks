@@ -13,13 +13,13 @@ public class BookPrice {
 		switch (uniqueBooks) {
 
 		case 2:
-			return BookConstant.basePrice * uniqueBooks * 0.95;
+			return BookConstant.basePrice * uniqueBooks * BookConstant.discount_TwoDifferentBooks;
 		case 3:
-			return BookConstant.basePrice * uniqueBooks * 0.90;
+			return BookConstant.basePrice * uniqueBooks * BookConstant.discount_ThreeDifferentBooks;
 		case 4:
-			return BookConstant.basePrice * uniqueBooks * 0.80;
+			return BookConstant.basePrice * uniqueBooks * BookConstant.discount_FourDifferentBooks;
 		case 5:
-			return BookConstant.basePrice * uniqueBooks * 0.75;
+			return BookConstant.basePrice * uniqueBooks * BookConstant.discount_FiveDifferentBooks;
 		default:
 			return BookConstant.basePrice * uniqueBooks;
 		}

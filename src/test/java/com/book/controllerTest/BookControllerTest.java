@@ -4,6 +4,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.WebProperties.Resources.Chain.Strategy.Content;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -22,7 +24,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.book.controller.BookController;
 import com.book.model.request.BookItem;
 import com.book.model.request.BookRequest;
+import com.book.model.response.BookResponse;
 import com.book.service.BookOrderCalculatorService;
+import com.book.utility.BookConstant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -60,8 +64,12 @@ public class BookControllerTest {
 		bookList.put("Clean Code", 2);
 		bookList.put("Clean Coder", 2);
 		when(bookOrder.calculateBookPrice(bookList)).thenReturn(190.0);
+		
+		BookResponse response=new BookResponse(BookConstant.Response_Message,190.0);
+
 		mockMvc.perform(post("/books/bookPrice").contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(request))).andExpect(status().isOk());
+				.content(objectMapper.writeValueAsString(request))).andExpect(status().isOk()).
+		andExpect(content().json(objectMapper.writeValueAsString(response)));
 
 		verify(bookOrder).calculateBookPrice(bookList);
 
