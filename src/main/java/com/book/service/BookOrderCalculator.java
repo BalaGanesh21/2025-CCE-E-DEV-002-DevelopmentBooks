@@ -5,12 +5,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.book.price.BookPrice;
 import com.book.utility.BookConstant;
 
 @Component
 public class BookOrderCalculator {
+	
+	@Autowired
+	private BookPrice bookPrice;
 
 	public Double calculateBookPrice(Map<String, Integer> bookList) throws Exception {
 
@@ -37,7 +42,7 @@ public class BookOrderCalculator {
 				}
 
 			}
-			totalPrice += getDiscoutPrice(uniqueBooks);
+			totalPrice += bookPrice.getBookPrice(uniqueBooks);
 		}
 
 		return totalPrice;
@@ -53,20 +58,5 @@ public class BookOrderCalculator {
 		return true;
 	}
 
-	public double getDiscoutPrice(int uniqueBooks) {
-
-		switch (uniqueBooks) {
-
-		case 2:
-			return BookConstant.basePrice * uniqueBooks * 0.95;
-		case 3:
-			return BookConstant.basePrice * uniqueBooks * 0.90;
-		case 4:
-			return BookConstant.basePrice * uniqueBooks * 0.80;
-		case 5:
-			return BookConstant.basePrice * uniqueBooks * 0.75;
-		default:
-			return BookConstant.basePrice * uniqueBooks;
-		}
-	}
+	
 }
