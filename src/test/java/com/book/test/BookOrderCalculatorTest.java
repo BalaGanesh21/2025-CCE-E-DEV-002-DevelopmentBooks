@@ -31,5 +31,11 @@ public class BookOrderCalculatorTest {
 	}
 
 	
+	@Test
+	public void testSingleSet() throws Exception {
+
+		Map<String, Integer> book = Map.of("Clean Code", 5);
+		assertEquals(50, bookOrderCalculator.calculateBookPrice(book), 0.1);
+	}
 
 }
