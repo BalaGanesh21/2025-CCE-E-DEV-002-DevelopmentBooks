@@ -14,8 +14,8 @@ public class BookFinalPrice {
 	public double getBooksTotalPrice(List<List<Integer>> groups, double totalPrice) {
 
 		for (List<Integer> group : groups) {
-			int uniqueBooks = (int) group.stream().filter(x -> x > 0).count();
-			totalPrice += bookPrice.getPriceForEachUniqueSets(uniqueBooks);
+			int bookSet = (int) group.stream().filter(uniqueBooks -> uniqueBooks > 0).count();
+			totalPrice += bookPrice.getPriceForEachUniqueSets(bookSet);
 		}
 
 		return totalPrice;

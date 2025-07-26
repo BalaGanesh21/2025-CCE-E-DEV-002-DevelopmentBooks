@@ -21,12 +21,13 @@ public class GroupOptimizer {
 		}
 
 		groupOptimization(groupSizeCountMap, BookConstant.Group_Three, BookConstant.Group_Two, BookConstant.Group_Five,
-				1);
+				BookConstant.Group_Increment_One);
 		groupOptimization(groupSizeCountMap, BookConstant.Group_Five, BookConstant.Group_Three, BookConstant.Group_Four,
-				2);
+				BookConstant.Group_Increment_Two);
 		groupOptimization(groupSizeCountMap, BookConstant.Group_Two, BookConstant.Group_One, BookConstant.Group_Three,
-				1);
+				BookConstant.Group_Increment_One);
 		differentBookSets.clear();
+
 		for (Map.Entry<Integer, Integer> e : groupSizeCountMap.entrySet()) {
 			for (int i = 0; i < e.getValue(); i++) {
 				differentBookSets.add(Collections.nCopies(e.getKey(), 1));
