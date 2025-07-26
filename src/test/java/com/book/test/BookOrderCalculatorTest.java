@@ -98,7 +98,8 @@ public class BookOrderCalculatorTest {
 	
 	@Test
 	public void testPriceforComplexSetThree() throws Exception{
-		Map<String,Integer> book=Map.of("Clean Code",5,"Clean Coder",4);
-		assertEquals(430.0,bookOrderCalculator.calculateBookPrice(book),0.1);
+		Map<String,Integer> book=Map.of("Clean Code",1,"Clean Coder",2,"Clean Architecture",
+				3,"Test Driven Development",4,"Working effectively with Legacy Code",5);
+		assertEquals(585.0,bookOrderCalculator.calculateBookPrice(book),0.1);
 	}
 }
