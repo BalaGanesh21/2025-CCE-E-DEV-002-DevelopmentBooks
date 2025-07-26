@@ -102,4 +102,11 @@ public class BookOrderCalculatorTest {
 				3,"Test Driven Development",4,"Working effectively with Legacy Code",5);
 		assertEquals(585.0,bookOrderCalculator.calculateBookPrice(book),0.1);
 	}
+	
+	@Test
+	public void testPriceforComplexSetFour() throws Exception{
+		Map<String,Integer> book=Map.of("Clean Code",3,"Clean Coder",2,"Clean Architecture",
+				1,"Test Driven Development",1,"Working effectively with Legacy Code",1);
+		assertEquals(322.5,bookOrderCalculator.calculateBookPrice(book),0.1);
+	}
 }
