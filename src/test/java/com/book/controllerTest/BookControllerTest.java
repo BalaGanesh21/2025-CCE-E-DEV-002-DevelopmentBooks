@@ -44,4 +44,15 @@ public class BookControllerTest {
 		verify(bookOrder).calculateBookPrice(book);
 
 	}
+	
+	@Test
+	public void testOrderBookException() throws JsonProcessingException, Exception {
+		Map<String, Integer> book = Map.of();
+		when(bookOrder.calculateBookPrice(book)).thenThrow(new Exception("Book Basket is empty, Please add some books"));
+		mockMvc.perform(post("/books/bookPrice").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(book))).andExpect(status().isNotAcceptable());
+
+		verify(bookOrder).calculateBookPrice(book);
+
+	}
 }
