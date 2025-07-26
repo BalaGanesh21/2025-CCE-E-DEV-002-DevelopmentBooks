@@ -44,4 +44,12 @@ public class BookOrderCalculatorTest {
 		assertEquals(190, bookOrderCalculator.calculateBookPrice(book),0.1);
 		
 	}
+	
+
+	@Test 
+	public void bookListContainDifferentSets() throws Exception{
+		Map<String,Integer> book=Map.of("Clean Code",2,"Clean Coder",1,
+				"Test Driven Development",1);
+		assertEquals(185.0,bookOrderCalculator.calculateBookPrice(book),0.1);
+	}
 }
